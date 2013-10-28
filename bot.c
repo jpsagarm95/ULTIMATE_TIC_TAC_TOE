@@ -43,12 +43,20 @@ void monster( int**** board , int x , int y , int **w)
 			x2=2;
 			y2=0;
 		}
+		if((x1==0)&&(y1==1)){
+			x2=2;
+			y2=1;
+		}
+		if((x1==2)&&(y1==1)){
+			x2=0;
+			y2=1;
+		}
 		return;
 	}
 	// If the whole board is allowed to play then I will put that back 
 	// through the second grid if possible if not lock in the second grid
 	if((x==-1)&&(y==-1)){
-		if(board[x2][y2][x1][y1]!=-1){
+		if(board[x2][y2][x1][y1]==-1){
 			board[x2][y2][x1][y1]=1;
 			return;
 		}else{
