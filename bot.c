@@ -1,17 +1,26 @@
 #include<stdio.h>
-void monster( int**** board , int x , int y , int **w)
+/*
+ * Its my bot
+ * @param board the pointer to the board
+ * @param x the row of the grid in which it should play
+ * @param y the column of the grid in which it should play
+ * @param w matrix containing the info about which grids are won
+ * @return it returns the encoding of the position where it played
+ * @jpsagar
+ */
+int monster( int**** board , int x , int y , int **w)
 {	static x1=-1,x2=-1,y1=-1,y2=-1;
 	// Initial move @jpsagar
 	if((x==-1)&&(y==-1)&&(free(w))){
 		board[1][1][1][1]=1;
-		return;
+		return (code(1,1));
 	}
 	
 	// Trying to push the opponent into the middle grid until it is filled
 	// @jpsagar
 	if(full( board , 1 , 1)!=-1){
 		board[x][y][1][1]=1;
-		return;
+		return (code(1,1));
 	}
 	// Its for trying to enter into some new grid and initialing opposite 
 	// grid for stopping it to win the game	
@@ -51,26 +60,26 @@ void monster( int**** board , int x , int y , int **w)
 			x2=0;
 			y2=1;
 		}
-		return;
+		return (code(x,y));
 	}
 	// If the whole board is allowed to play then I will put that back 
 	// through the second grid if possible if not lock in the second grid
 	if((x==-1)&&(y==-1)){
 		if(board[x2][y2][x1][y1]==-1){
 			board[x2][y2][x1][y1]=1;
-			return;
+			return (code(x1,y1));
 		}else{
 			board[x2][y2][x2][y2]=1;
-			return;
+			return (code(x2,y2));
 	}
 	// First preference is given to the first grid(x1,y1) and second is to 
 	// the second grid (x2,y2)
 	if(board[x][y][x1][y1]==-1){
 		board[x][y][x1][y1]=1
-		return;
+		return (code(x1,y1));
 	}else{
 		board[x][y][x2][y2]=1;
-		return;
+		return (code(x2,y2));
 	}		
 }
 
@@ -121,4 +130,15 @@ int completelyfree(int ****board, int x, int y){
 			if(board[x][y][i][j]!=-1)
 				return 0;
 	return 1;
+}
+
+/*
+ * Function to encode the position into single integer
+ * @param x the row of the position
+ * @param y the column of the position
+ * @return it the encoding of the position( x*3 + y )
+ * @jpsagar
+ */
+int code(int x, int y){
+	return (x*3+y);
 }
