@@ -29,6 +29,9 @@ int engine(int ****board)
 		//print to 1st player
 		print(board);
 		
+		sleep(2);
+        system("clear");
+		
 		by_player1=monster(board,x2,y2,w);
 		
 		//decoding the x,y coordinates of grid of board marked by player2
@@ -43,6 +46,9 @@ int engine(int ****board)
 		
 		//print to 2nd player
 		print(board);
+		
+		sleep(2);
+        system("clear");
 		
 		by_player2=monster(board,x1,y1,w);
 		
@@ -127,35 +133,103 @@ void print_as_two_by_two_matrix(int x1,int ****board)
 {
 	int i;
 	for(i=0;i<3;i++)
-	printf("%d ",board[x1][0][0][i]);
+	{
+	if(board[x1][0][0][i]==-1)
+	printf("|___| ");
+	else if(board[x1][0][0][i]==1)
+	printf("|_x_| ");
+	else if(board[x1][0][0][i]==2)
+	printf("|_o_| ");
+	}
 	
 	for(i=0;i<3;i++)
-	printf("%d ",board[x1][1][0][i]);
+	{
+	if(board[x1][1][0][i]==-1)
+	printf("|___| ");
+	else if(board[x1][1][0][i]==1)
+	printf("|_x_| ");
+	else if(board[x1][1][0][i]==2)
+	printf("|_o_| ");
+	}
+	
 	
 	for(i=0;i<3;i++)
-	printf("%d ",board[x1][2][0][i]);
+	{
+	if(board[x1][2][0][i]==-1)
+	printf("|___| ");
+	else if(board[x1][2][0][i]==1)
+	printf("|_x_| ");
+	else if(board[x1][2][0][i]==2)
+	printf("|_o_| ");
+	}
 	
 	printf("\n");
 	
 	for(i=0;i<3;i++)
-	printf("%d ",board[x1][0][1][i]);
+	{
+	if(board[x1][0][1][i]==-1)
+	printf("|___| ");
+	else if(board[x1][0][1][i]==1)
+	printf("|_x_| ");
+	else if(board[x1][0][1][i]==2)
+	printf("|_o_| ");
+	}
 	
 	for(i=0;i<3;i++)
-	printf("%d ",board[x1][1][1][i]);
+	{
+	if(board[x1][1][1][i]==-1)
+	printf("|___| ");
+	else if(board[x1][1][1][i]==1)
+	printf("|_x_| ");
+	else if(board[x1][1][1][i]==2)
+	printf("|_o_| ");
+	}
+
 	
 	for(i=0;i<3;i++)
-	printf("%d ",board[x1][2][1][i]);
+	{
+	if(board[x1][2][1][i]==-1)
+	printf("|___| ");
+	else if(board[x1][2][1][i]==1)
+	printf("|_x_| ");
+	else if(board[x1][2][1][i]==2)
+	printf("|_o_| ");
+	}
 	
 	printf("\n");
 	
 	for(i=0;i<3;i++)
-	printf("%d ",board[x1][0][2][i]);
+	{
+	if(board[x1][0][2][i]==-1)
+	printf("|___| ");
+	else if(board[x1][0][2][i]==1)
+	printf("|_x_| ");
+	else if(board[x1][0][2][i]==2)
+	printf("|_o_| ");
+	}
+
 	
 	for(i=0;i<3;i++)
-	printf("%d ",board[x1][1][2][i]);
+	{
+	if(board[x1][1][2][i]==-1)
+	printf("|___| ");
+	else if(board[x1][1][2][i]==1)
+	printf("|_x_| ");
+	else if(board[x1][1][2][i]==2)
+	printf("|_o_| ");
+	}
+
 	
 	for(i=0;i<3;i++)
-	printf("%d ",board[x1][2][2][i]);
+	{
+	if(board[x1][2][2][i]==0)
+	printf("|___| ");
+	else if(board[x1][2][2][i]==1)
+	printf("|_x_| ");
+	else if(board[x1][2][2][i]==2)
+	printf("|_o_| ");
+	}
+
 	
 	printf("\n");
 }
