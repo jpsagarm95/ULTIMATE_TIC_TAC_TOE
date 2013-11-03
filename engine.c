@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+int win_full(int **);
 int box_win(int,int,char****,int);
 int w_win(int **,int);
 void print(FILE*,char ****);
@@ -27,12 +28,12 @@ int main()
 	char ****board=(char****)malloc(sizeof(char***)*3);
 	for(i=0;i<3;i++)
 	{
-		*win[i]=(char***)malloc(sizeof(char**)*3);
+		*board[i]=(char***)malloc(sizeof(char**)*3);
 		for(j=0;j<3;j++)
 		{
-			*win[i][j]=(char**)malloc(sizeof(char*)*3);
+			*board[i][j]=(char**)malloc(sizeof(char*)*3);
 			for(k=0;k<3;k++)
-			win[i][j][k]=(char*)malloc(sizeof(char)*3);
+			board[i][j][k]=(char*)malloc(sizeof(char)*3);
 		}
 	}
 	
@@ -49,7 +50,7 @@ int main()
 		}
 	}
 	
-	while(player1_win==0 && player2_win==0)
+	while(player1_win==0 && player2_win==0 && win_full(win)==0)
 	{
 		//print to 1st player
 		print(fp,board);
@@ -91,8 +92,28 @@ int main()
 	}
 	fclose(fp);
 	
-	if(player1_win==1)return 1;
-	else if(player2_win==1)return 2;
+	if(player1_win==1)printf("Game is over.Player1 has won\n");
+	else if(player2_win==1)printf("Game is over.Player2 has won\n");
+	else if(player1==0 && player_2==0)printf("It's tie.\n");
+}
+
+/*********************************************************************************
+** func win_full to see if all grids are won,but game isn't won by any of them.
+** @param win -pointer to winning matrix
+** @param returns 1 if all grids are won by players else 0
+*********************************************************************************/
+int win_full(int **win)
+{
+	int i,j;
+	for(i=0;i<3;i++)
+	{
+		for(j=0;j<3;j++)
+		{
+		if(win[i][j]!=-1)continue;
+		else return 0;
+		}
+	}
+	return 1;
 }
 
 /****************************************************************************************
