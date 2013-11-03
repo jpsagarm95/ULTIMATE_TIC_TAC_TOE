@@ -106,27 +106,20 @@ int main()
 *********************************************************************************/
 int board_of_win_full(int **win,char ****board)
 {
-	int i,j,k,l,x,y;
+	int k,l,x,y;
 	for(x=0;x<3;x++)
 	{
 		for(y=0;y<3;y++)
 		{
 		if(win[x][y]!==-1)
 		{
-		
-		for(i=0;i<3;i++)
-		{
-		for(j=0;j<3;j++)
-		{
 		for(k=0;k<3;k++)
 		{
 		for(l=0;l<3;l++)
 		{
-		if(board[i][j][k][l]!='.')
+		if(board[x][y][k][l]!='.')
 		continue;
 		else return 0;
-		}
-		}
 		}
 		}
 		}
