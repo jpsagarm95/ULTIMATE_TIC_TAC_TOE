@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+int board_full(char ****);
 int win_full(int **);
 int box_win(int,int,char****,int);
 int w_win(int **,int);
@@ -50,7 +51,7 @@ int main()
 		}
 	}
 	
-	while(player1_win==0 && player2_win==0 && win_full(win)==0)
+	while(player1_win==0 && player2_win==0 && win_full(win)==0 board_full(board)==0)
 	{
 		//print to 1st player
 		print(fp,board);
@@ -97,6 +98,31 @@ int main()
 	else if(player1==0 && player_2==0)printf("It's tie.\n");
 }
 
+/*********************************************************************************
+** func board_full to see if all boxes are filled,but game isn't won by any of them.
+** @param board -pointer to board
+** @param returns 1 if all boxes of board are full, else 0 
+*********************************************************************************/
+int board_full(char ****board)
+{
+	int i,j,k,l;
+	for(i=0;i<3;i++)
+	{
+		for(j=0;j<3;j++)
+		{
+			for(k=0;k<3;k++)
+			{
+				for(l=0;l<3;l++)
+				{
+				if(board[i][j][k][l]!='.')continue;
+				else return 0;
+				}
+			}
+		}
+	}
+	return 1;
+			
+}
 /*********************************************************************************
 ** func win_full to see if all grids are won,but game isn't won by any of them.
 ** @param win -pointer to winning matrix
