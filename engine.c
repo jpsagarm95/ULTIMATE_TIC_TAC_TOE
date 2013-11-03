@@ -99,7 +99,7 @@ int main()
 
 
 /*********************************************************************************
-** func win_full to see the boxes of grid which aren't won are full or not.
+** func board_of_win_full to see the boxes of grid which aren't won are full or not.
 ** @param win -pointer to winning matrix
 ** @param board pointer.
 ** @param returns 1 if the game can't be further played ,else 0
