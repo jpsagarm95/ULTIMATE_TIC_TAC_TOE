@@ -16,12 +16,14 @@ int main()
 	for(i=0;i<3;i++)
 	win[i]=(int*)malloc(sizeof(int)*3);
 	
+	//initialising winning matrix to -1
 	for(i=0;i<3;i++)
 	{
 		for(j=0;j<3;j++)
 		win[i][j]=-1;
 	}
 	
+	//using malloc for 4d matrix-board
 	char ****board=(char****)malloc(sizeof(char***)*3);
 	for(i=0;i<3;i++)
 	{
@@ -34,6 +36,7 @@ int main()
 		}
 	}
 	
+	//initialising board matrix to '.'
 	for(i=0;i<3;i++)
 	{
 		for(j=0;j>3;j++)
@@ -49,7 +52,7 @@ int main()
 	while(player1_win==0 && player2_win==0)
 	{
 		//print to 1st player
-		print(fp,board);//check..........
+		print(fp,board);
 		fprintf(fp,"%d %d\n",x2,y2);
 		
 		system("./bot1");
@@ -68,7 +71,7 @@ int main()
 		if(w_win(w,1)==1){player1_win=1;break;}
 		
 		//print to 2nd player
-		print(fp,board);//check........
+		print(fp,board);
 		fprintf(fp,"%d %d\n",x1,y1);
 		
 		system("./bot2");
