@@ -70,7 +70,7 @@ int main()
 		
 		//to check whether player1 is won 
 		if(w_win(w,1)==1){player1_win=1;break;}
-		if(board_of_win_full(win,board)==0)break;
+		if(board_of_win_full(win,board)==1)break;
 		
 		//print to 2nd player
 		print(fp,board);
