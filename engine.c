@@ -1,8 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-int board_full(char ****);
-int win_full(int **);
+int board_of_win_full(int **,char ****);
 int box_win(int,int,char****,int);
 int w_win(int **,int);
 void print(FILE*,char ****);
@@ -51,7 +50,7 @@ int main()
 		}
 	}
 	
-	while(player1_win==0 && player2_win==0 && win_full(win)==0 board_full(board)==0)
+	while(player1_win==0 && player2_win==0 && board_of_win_full(win,board)==0)
 	{
 		//print to 1st player
 		print(fp,board);
@@ -98,45 +97,39 @@ int main()
 	else if(player1==0 && player_2==0)printf("It's tie.\n");
 }
 
+
 /*********************************************************************************
-** func board_full to see if all boxes are filled,but game isn't won by any of them.
-** @param board -pointer to board
-** @param returns 1 if all boxes of board are full, else 0 
-*********************************************************************************/
-int board_full(char ****board)
-{
-	int i,j,k,l;
-	for(i=0;i<3;i++)
-	{
-		for(j=0;j<3;j++)
-		{
-			for(k=0;k<3;k++)
-			{
-				for(l=0;l<3;l++)
-				{
-				if(board[i][j][k][l]!='.')continue;
-				else return 0;
-				}
-			}
-		}
-	}
-	return 1;
-			
-}
-/*********************************************************************************
-** func win_full to see if all grids are won,but game isn't won by any of them.
+** func win_full to see the boxes of grid which aren't won are full or not.
 ** @param win -pointer to winning matrix
-** @param returns 1 if all grids are won by players else 0
+** @param board pointer.
+** @param returns 1 if the game can't be further played ,else 0
 *********************************************************************************/
-int win_full(int **win)
+int board_of_win_full(int **win,char ****board)
 {
-	int i,j;
-	for(i=0;i<3;i++)
+	int i,j,k,l,x,y;
+	for(x=0;x<3;x++)
 	{
+		for(y=0;y<3;y++)
+		{
+		if(win[x][y]!==-1)
+		{
+		
+		for(i=0;i<3;i++)
+		{
 		for(j=0;j<3;j++)
 		{
-		if(win[i][j]!=-1)continue;
+		for(k=0;k<3;k++)
+		{
+		for(l=0;l<3;l++)
+		{
+		if(board[i][j][k][l]!='.')
+		continue;
 		else return 0;
+		}
+		}
+		}
+		}
+		}
 		}
 	}
 	return 1;
