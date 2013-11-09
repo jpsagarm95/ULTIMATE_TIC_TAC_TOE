@@ -5,9 +5,7 @@ int board_of_win_full(int **,char ****);
 int box_win(int,int,char****,int);
 int w_win(int **,int);
 void print(FILE*,char ****);
-void print_as_two_by_two_matrix(FILE*,int,char ****);
 void scan(FILE *,char ****);
-void to_scan(FILE *,int,char ****);
 
 int main()
 {
@@ -135,7 +133,7 @@ int board_of_win_full(int **win,char ****board)
 }
 
 /****************************************************************************************
-** box_win func to maintain 'w' matrix
+** box_win func to maintain 'win' matrix
 ** @param x,y : coordinates of the grid in the board
 ** @param board pointer to the board
 ** @player_no:player 1 or 2
@@ -186,128 +184,43 @@ int w_win(int **w,int a)
 ****************************************************************************/	
 void print(FILE *fp,char ****board)
 {
-	print_as_two_by_two_matrix(fp,0,board);
-	print_as_two_by_two_matrix(fp,1,board);
-	print_as_two_by_two_matrix(fp,2,board);
-	
+	int i,j,k,l;
+	for(i=0;i<3;i++)
+	{
+		for(k=0;k<3;k++)
+		{
+			for(j=0;j<3;j++)
+			{
+				for(l=0;l<3;l++)
+				{
+				fprintf(fp,"%c ",board[i][j][k][l]);
+				printf("%c ",board[i][j][k][l]);
+				}
+			}
+		}
+	}	
 }
-
-
-/********************************************************************************
-**sub function which helps print function to print the board to file and terminal
-** @param fp:pointer to FILE
-** @param x1:the first x coordinate of the board(the x coordinate of the grid)
-** @param board :the pointer to the board
-** prints all the elements in the x1 th row of the grid as required 2x2 matrix
-********************************************************************************/	
-void print_as_two_by_two_matrix(FILE *fp,int x1,char ****board)
-{
-	int i;
-	for(i=0;i<3;i++)
-	{
-	fprintf(fp,"%c ",board[x1][0][0][i]);
-	printf("%c ",board[x1][0][0][i]);
-	}
-	for(i=0;i<3;i++)
-	{
-	fprintf(fp,"%c ",board[x1][1][0][i]);
-	printf("%c ",board[x1][1][0][i]);
-	}
-	for(i=0;i<3;i++)
-	{
-	fprintf(fp,"%c ",board[x1][2][0][i]);
-	printf("%c ",board[x1][2][0][i]);
-	}
-	fprintf(fp,"\n");
-	printf("\n");
-	
-	for(i=0;i<3;i++)
-	{
-	fprintf(fp,"%c ",board[x1][0][1][i]);
-	printf("%c ",board[x1][0][1][i]);
-	}
-	for(i=0;i<3;i++)
-	{
-	fprintf(fp,"%c ",board[x1][1][1][i]);
-	printf("%c ",board[x1][1][1][i]);
-	}
-	for(i=0;i<3;i++)
-	{
-	fprintf(fp,"%c ",board[x1][2][1][i]);
-	printf("%c ",board[x1][2][1][i]);
-	}
-	fprintf(fp,"\n");
-	printf("\n");
-	
-	for(i=0;i<3;i++)
-	{
-	fprintf(fp,"%c ",board[x1][0][2][i]);
-	printf("%c ",board[x1][0][2][i]);
-	}
-	for(i=0;i<3;i++)
-	{
-	fprintf(fp,"%c ",board[x1][1][2][i]);
-	printf("%c ",board[x1][1][2][i]);
-	}
-	for(i=0;i<3;i++)
-	{
-	fprintf(fp,"%c ",board[x1][2][2][i]);
-	printf("%c ",board[x1][2][2][i]);
-	}
-	fprintf(fp,"\n");
-	printf("\n");
-}
-
-/****************************************************************************
-** func scan to scan the whole board as 2x2 matrix from file.
-** @param pointer to board and FILE -fp
-** scans whole board as 2x2 matrix
-****************************************************************************/
-void scan(FILE *fp,char ****board)
-{
-	to_scan(fp,0,board);
-	to_scan(fp,1,board);
-	to_scan(fp,2,board);
-	
-}
-
 
 /******************************************************************************
 **sub function which helps scan function to scan the board
 ** @param fp:FILE pointer
-** @param x1:the first x coordinate of the board(the x coordinate of the grid)
 ** @param board :the pointer to the board
-** scans all the elements in the x1 th row of the grid as required 2x2 matrix
+** scans all the elements of the grid.
 ******************************************************************************/	
-void to_scan(FILE *fp,int x1,char ****board)
+void scan(FILE *fp,char ****board)
 {
-	int i;
+	int i,j,k,l;
 	for(i=0;i<3;i++)
-	fscanf(fp," %c",&board[x1][0][0][i]);
-	
-	for(i=0;i<3;i++)
-	fscanf(fp," %c",&board[x1][1][0][i]);
-	
-	for(i=0;i<3;i++)
-	fscanf(fp," %c",&board[x1][2][0][i]);
-	
-	for(i=0;i<3;i++)
-	fscanf(fp," %c",&board[x1][0][1][i]);
-	
-	for(i=0;i<3;i++)
-	fscanf(fp," %c",&board[x1][1][1][i]);
-	
-	for(i=0;i<3;i++)
-	fscanf(fp," %c",&board[x1][2][1][i]);
-	
-	for(i=0;i<3;i++)
-	fscanf(fp," %c",&board[x1][0][2][i]);
-	
-	for(i=0;i<3;i++)
-	fscanf(fp," %c",&board[x1][1][2][i]);
-	
-	for(i=0;i<3;i++)
-	fscanf(fp," %c",&board[x1][2][2][i]);
+	{
+		for(k=0;k<3;k++)
+		{
+			for(j=0;j<3;j++)
+			{
+				for(l=0;l<3;l++)
+				fscanf(fp,"%c ",&board[i][j][k][l]);
+			}
+		}
+	}
 	
 }
 			
