@@ -5,14 +5,14 @@ int board_of_win_full(int **,char ****);
 int box_win(int,int,char****,int);
 int w_win(int **,int);
 void print(FILE*,char ****);
-void print_as_two_by_two_matrix(fp,int,char ****);
+void print_as_two_by_two_matrix(FILE*,int,char ****);
 void scan(FILE *,char ****);
 void to_scan(FILE *,int,char ****);
 
 int main()
 {
 	FILE* fp=fopen("bot.text","r+");
-	int i,j,k,player_1=0;player_2=0,x2=-1,y2=-1,x,y;
+	int i,j,k,l,player1_win=0,player2_win=0,x2=-1,y2=-1,x1,y1,x,y;
 	int **win=(int**)malloc(sizeof(int*)*3);
 	for(i=0;i<3;i++)
 	win[i]=(int*)malloc(sizeof(int)*3);
@@ -28,10 +28,10 @@ int main()
 	char ****board=(char****)malloc(sizeof(char***)*3);
 	for(i=0;i<3;i++)
 	{
-		*board[i]=(char***)malloc(sizeof(char**)*3);
+		board[i]=(char***)malloc(sizeof(char**)*3);
 		for(j=0;j<3;j++)
 		{
-			*board[i][j]=(char**)malloc(sizeof(char*)*3);
+			board[i][j]=(char**)malloc(sizeof(char*)*3);
 			for(k=0;k<3;k++)
 			board[i][j][k]=(char*)malloc(sizeof(char)*3);
 		}
@@ -54,7 +54,10 @@ int main()
 	{
 		//print to 1st player
 		print(fp,board);
+		printf("%d %d\n",x2,y2);
 		fprintf(fp,"%d %d\n",x2,y2);
+		sleep(2);
+		system("clear");
 		
 		system("./bot1");
 		
@@ -69,13 +72,15 @@ int main()
 		if(win[x][y]==-1 && box_win(x1,y1,board,1)==1)win[x1][y1]=1;
 		
 		//to check whether player1 is won 
-		if(w_win(w,1)==1){player1_win=1;break;}
+		if(w_win(win,1)==1){player1_win=1;break;}
 		if(board_of_win_full(win,board)==1)break;
 		
 		//print to 2nd player
 		print(fp,board);
+		printf("%d %d\n",x1,y1);
 		fprintf(fp,"%d %d\n",x1,y1);
-		
+		sleep(2);
+		system("clear");
 		system("./bot2");
 		
 		scan(fp,board);
@@ -86,16 +91,16 @@ int main()
 		
 		//a check to see whether any of the grids is won by player2 and mark that
 		//particular element in 'w'matrix as '2'
-		if(w[x][y]==-1 && box_win(x2,y2,board,2)==2)w[x2][y2]=2;
+		if(win[x][y]==-1 && box_win(x2,y2,board,2)==2)win[x2][y2]=2;
 		
 		//to check whether player2 is won
-		if(w_win(w,2)==2){player2_win=1;break;}
+		if(w_win(win,2)==2){player2_win=1;break;}
 	}
 	fclose(fp);
 	
 	if(player1_win==1)printf("Game is over.Player1 has won\n");
 	else if(player2_win==1)printf("Game is over.Player2 has won\n");
-	else if(player1==0 && player_2==0)printf("It's tie.\n");
+	else if(player1_win==0 && player2_win==0)printf("It's tie.\n");
 }
 
 
@@ -112,7 +117,7 @@ int board_of_win_full(int **win,char ****board)
 	{
 		for(y=0;y<3;y++)
 		{
-		if(win[x][y]!==-1)
+		if(win[x][y]!=-1)
 		{
 		for(k=0;k<3;k++)
 		{
@@ -140,7 +145,7 @@ int box_win(int x,int y,char ****board,int player_no)
 {
 	char a;
 	if(player_no==1)a='X';
-	else {a='O'};
+	else {a='O';}
 	if((board[x][y][0][0]==a && board[x][y][0][1]==a && board[x][y][0][2]==a)||
 	   (board[x][y][1][0]==a && board[x][y][1][1]==a && board[x][y][1][2]==a)||
 	   (board[x][y][2][0]==a && board[x][y][2][1]==a && board[x][y][2][2]==a)||
@@ -159,9 +164,9 @@ int box_win(int x,int y,char ****board,int player_no)
 ** @param pointer to winning matrix 'w'
 ** @return:returns the current player_no if the current player is won,else 0
 ***************************************************************************************/
-int w_win(int **w,int player_no)
+int w_win(int **w,int a)
 {
-	int a=player_no;
+	
 	if((w[0][0]==a && w[0][1]==a && w[0][2]==a)||
 	   (w[1][0]==a && w[1][1]==a && w[1][2]==a)||
 	   (w[2][0]==a && w[2][1]==a && w[2][2]==a)||
@@ -201,17 +206,17 @@ void print_as_two_by_two_matrix(FILE *fp,int x1,char ****board)
 	for(i=0;i<3;i++)
 	{
 	fprintf(fp,"%c ",board[x1][0][0][i]);
-	printf("%c "board[x1][0][0][i]);
+	printf("%c ",board[x1][0][0][i]);
 	}
 	for(i=0;i<3;i++)
 	{
 	fprintf(fp,"%c ",board[x1][1][0][i]);
-	printf("%c "board[x1][1][0][i]);
+	printf("%c ",board[x1][1][0][i]);
 	}
 	for(i=0;i<3;i++)
 	{
 	fprintf(fp,"%c ",board[x1][2][0][i]);
-	printf("%c "board[x1][2][0][i]);
+	printf("%c ",board[x1][2][0][i]);
 	}
 	fprintf(fp,"\n");
 	printf("\n");
@@ -219,17 +224,17 @@ void print_as_two_by_two_matrix(FILE *fp,int x1,char ****board)
 	for(i=0;i<3;i++)
 	{
 	fprintf(fp,"%c ",board[x1][0][1][i]);
-	printf("%c "board[x1][0][1][i]);
+	printf("%c ",board[x1][0][1][i]);
 	}
 	for(i=0;i<3;i++)
 	{
 	fprintf(fp,"%c ",board[x1][1][1][i]);
-	printf("%c "board[x1][1][1][i]);
+	printf("%c ",board[x1][1][1][i]);
 	}
 	for(i=0;i<3;i++)
 	{
 	fprintf(fp,"%c ",board[x1][2][1][i]);
-	printf("%c "board[x1][2][1][i]);
+	printf("%c ",board[x1][2][1][i]);
 	}
 	fprintf(fp,"\n");
 	printf("\n");
@@ -237,17 +242,17 @@ void print_as_two_by_two_matrix(FILE *fp,int x1,char ****board)
 	for(i=0;i<3;i++)
 	{
 	fprintf(fp,"%c ",board[x1][0][2][i]);
-	printf("%c "board[x1][0][2][i]);
+	printf("%c ",board[x1][0][2][i]);
 	}
 	for(i=0;i<3;i++)
 	{
 	fprintf(fp,"%c ",board[x1][1][2][i]);
-	printf("%c "board[x1][1][2][i]);
+	printf("%c ",board[x1][1][2][i]);
 	}
 	for(i=0;i<3;i++)
 	{
 	fprintf(fp,"%c ",board[x1][2][2][i]);
-	printf("%c "board[x1][2][2][i]);
+	printf("%c ",board[x1][2][2][i]);
 	}
 	fprintf(fp,"\n");
 	printf("\n");
