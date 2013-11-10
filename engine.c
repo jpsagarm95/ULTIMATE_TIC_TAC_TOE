@@ -6,10 +6,25 @@ int box_win(int,int,char****,int);
 int w_win(int **,int);
 void print(FILE*,char ****);
 void scan(FILE *,char ****);
+int board_full(int,int,char ****);
+{
+	int i,j;
+	for(i=0;i<3;i++)
+	{
+		for(j=0;j<3;j++)
+		{
+			if(board[x][y][i][j]!='.')
+			continue;
+			else return 0;
+		}
+	}
+return 1;
+
+}
 
 int main()
 {
-	FILE* fp=fopen("bot.text","r+");
+	FILE* fp=fopen("board.dat","w");
 	int i,j,k,l,player1_win=0,player2_win=0,x2=-1,y2=-1,x1,y1,x,y;
 	int **win=(int**)malloc(sizeof(int*)*3);
 	for(i=0;i<3;i++)
@@ -19,7 +34,7 @@ int main()
 	for(i=0;i<3;i++)
 	{
 		for(j=0;j<3;j++)
-		win[i][j]=-1;
+			win[i][j]=-1;
 	}
 	
 	//using malloc for 4d matrix-board
@@ -31,19 +46,19 @@ int main()
 		{
 			board[i][j]=(char**)malloc(sizeof(char*)*3);
 			for(k=0;k<3;k++)
-			board[i][j][k]=(char*)malloc(sizeof(char)*3);
+				board[i][j][k]=(char*)malloc(sizeof(char)*3);
 		}
 	}
 	
 	//initialising board matrix to '.'
 	for(i=0;i<3;i++)
 	{
-		for(j=0;j>3;j++)
+		for(j=0;j<3;j++)
 		{
 			for(k=0;k<3;k++)
 			{
 				for(l=0;l<3;l++)
-				board[i][j][k][l]='.';
+					board[i][j][k][l]='.';
 			}
 		}
 	}
@@ -54,45 +69,61 @@ int main()
 		print(fp,board);
 		printf("%d %d\n",x2,y2);
 		fprintf(fp,"%d %d\n",x2,y2);
-		sleep(2);
+		
+		fclose(fp);
+		sleep(1);
 		system("clear");
 		
-		system("./bot1");
+		system("./a.out");
 		
+		fp=fopen("board.dat","r");
 		scan(fp,board);
-		fscanf(fp,"%d %d",&x,&y);
-		
-		if(win[x][y]!=-1){x1=-1;y1=-1;}
-		else {x1=x;y1=y;}
+		fscanf(fp,"%d%d",&x,&y);
+		fclose(fp);
 		
 		//a check to see whether any of the grids is won by player1 and mark that
 		//particular element in 'w'matrix as '1'
-		if(win[x][y]==-1 && box_win(x1,y1,board,1)==1)win[x1][y1]=1;
+		if(win[x][y]==-1 && box_win(x,y,board,1)==1)win[x][y]=1;
+		
+		if(win[x][y]!=-1 || board_full(board,x,y)==1){x1=-1;y1=-1;}
+		else {x1=x;y1=y;}
+		
+		
 		
 		//to check whether player1 is won 
 		if(w_win(win,1)==1){player1_win=1;break;}
 		if(board_of_win_full(win,board)==1)break;
 		
 		//print to 2nd player
+		fp=fopen("board.dat","w");
 		print(fp,board);
 		printf("%d %d\n",x1,y1);
 		fprintf(fp,"%d %d\n",x1,y1);
-		sleep(2);
-		system("clear");
-		system("./bot2");
+		fclose(fp);
 		
+		sleep(1);
+		system("clear");
+		system("./a.out");
+		
+		fp=fopen("board.dat","r");
 		scan(fp,board);
 		fscanf(fp,"%d %d",&x,&y);
 		
-		if(win[x][y]!=-1){x2=-1;y2=-1;}
-		else {x2=x;y2=y;}
+		fclose(fp);
 		
 		//a check to see whether any of the grids is won by player2 and mark that
 		//particular element in 'w'matrix as '2'
-		if(win[x][y]==-1 && box_win(x2,y2,board,2)==2)win[x2][y2]=2;
+		if(win[x][y]==-1 && box_win(x,y,board,2)==2)win[x][y]=2;
+		
+		if(win[x][y]!=-1 || board_full(board,x,y)==1){x2=-1;y2=-1;}
+		else {x2=x;y2=y;}
+		
+		
 		
 		//to check whether player2 is won
 		if(w_win(win,2)==2){player2_win=1;break;}
+		
+		fp=fopen("board.dat","w");
 	}
 	fclose(fp);
 	
@@ -115,18 +146,19 @@ int board_of_win_full(int **win,char ****board)
 	{
 		for(y=0;y<3;y++)
 		{
-		if(win[x][y]!=-1)
-		{
-		for(k=0;k<3;k++)
-		{
-		for(l=0;l<3;l++)
-		{
-		if(board[x][y][k][l]!='.')
-		continue;
-		else return 0;
-		}
-		}
-		}
+			if(win[x][y]==-1)
+			{
+				for(k=0;k<3;k++)
+				{
+					for(l=0;l<3;l++)
+					{
+						if(board[x][y][k][l]!='.')
+							continue;
+						else 
+							return 0;
+					}
+				}
+			}
 		}
 	}
 	return 1;
@@ -193,10 +225,12 @@ void print(FILE *fp,char ****board)
 			{
 				for(l=0;l<3;l++)
 				{
-				fprintf(fp,"%c ",board[i][j][k][l]);
-				printf("%c ",board[i][j][k][l]);
+					fprintf(fp,"%c ",board[i][j][k][l]);
+					printf("%c ",board[i][j][k][l]);
 				}
 			}
+		fprintf(fp,"\n");
+		printf("\n");
 		}
 	}	
 }
@@ -210,17 +244,47 @@ void print(FILE *fp,char ****board)
 void scan(FILE *fp,char ****board)
 {
 	int i,j,k,l;
+	char bin;
 	for(i=0;i<3;i++)
 	{
 		for(k=0;k<3;k++)
 		{
 			for(j=0;j<3;j++)
 			{
-				for(l=0;l<3;l++)
-				fscanf(fp,"%c ",&board[i][j][k][l]);
+				for(l=0;l<3;l++){
+					fscanf(fp,"%c",&board[i][j][k][l]);
+					fscanf(fp,"%c",&bin);
+				}
 			}
+			fscanf(fp,"%c",&bin);
 		}
 	}
 	
 }
+
+
+/****************************************************************************************
+** board_full func to see whether all elements in board of that particular win matrix are
+** filled.
+** @param x,y : coordinates of the grid in the board
+** @param board pointer to the board
+** @return:returns 1 if entire grid is filled,else 0
+****************************************************************************************/
+int board_full(int x,int y,char ****board)
+{
+	int i,j;
+	for(i=0;i<3;i++)
+	{
+		for(j=0;j<3;j++)
+		{
+			if(board[x][y][i][j]!='.')
+			continue;
+			else return 0;
+		}
+	}
+return 1;
+
+}
+
+
 			
