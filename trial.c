@@ -853,6 +853,8 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		dx=nfree%3;
 		nfree=rand();
 		dy=nfree%3;
+		*x=dx;
+		*y=dy;
 	}
 	
 	// x==-1 case not taken care
@@ -930,17 +932,28 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 	}
 	
 	// x==-1 case not taken care
-	// for putting opponent in a grid where he played zero times
+	// for putting opponent in a grid where he played zero times and you dont lose your win
 	int flag=0;
 	k=0;
 	for(i=0;i<3;i++){
 		for(j=0;j<3;j++){
-			if((board[dx][dy][i][j]=='.')&&(numofen[i][j]==0)){
+			if((board[dx][dy][i][j]=='.')&&(numofen[i][j]==0)&&(place[i][j][0]==-1)){
 				arr[k++]=i*3+j;
 				flag=1;
 			}
 		}
 	}
+	if(k==0){
+		for(i=0;i<3;i++){
+			for(j=0;j<3;j++){
+				if((board[dx][dy][i][j]=='.')&&(numofen[i][j]==0)){
+					arr[k++]=i*3+j;
+					flag=1;
+				}
+			}
+		}
+	} 
+		
 	if(flag!=0){
 		k--;
 		srand(time(NULL));
@@ -952,8 +965,6 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		*playy=n%3;
 		return;
 	}
-	
-	
 	
 	// x==-1 case not taken care
 	// for putting opponent in a grid where he played only once
