@@ -56,6 +56,7 @@ int main(){
 
 	bestmove( board , win , &x , &y , &playx , &playy , sym , ensym );
 	
+	
 	board[x][y][playx][playy]=sym;
 	
 	printboard(board , playx , playy);
@@ -648,6 +649,7 @@ void enwinstop(char ****board , char **w , int x , int y , int ***placex , char 
 
 
 
+
 ** @param numofy-pointer to 2x2 matrix which stores no. of O's in grid
 ** returns with numofx and numofy filled
 ***********************************************************************************/
@@ -688,67 +690,78 @@ int w_win(char **w,char a,int *** place,int x,int y,int *dx,int *dy)
 {
 	if(x==-1 && y==-1)
 	{
-		if(w[0][0]==a && w[0][1]==a && w[0][2]=='.'){*dx=0;*dy=2;return 1;}
-		if(w[0][0]==a && w[0][2]==a && w[0][1]=='.'){*dx=0;*dy=1;return 1;}
-		if(w[0][1]==a && w[0][2]==a && w[0][0]=='.'){*dx=0;*dy=0;return 1;}
+		if(w[0][0]==a && w[0][1]==a && w[0][2]=='.' && place[0][2][0]!=-1 ){*dx=0;*dy=2;return 1;}
+		if(w[0][0]==a && w[0][2]==a && w[0][1]=='.' && place[0][1][0]!=-1){*dx=0;*dy=1;return 1;}
+		if(w[0][1]==a && w[0][2]==a && w[0][0]=='.' && place[0][0][0]!=-1){*dx=0;*dy=0;return 1;}
 		
-		if(w[1][0]==a && w[1][1]==a && w[1][2]=='.'){*dx=1;*dy=2;return 1;}
-		if(w[1][0]==a && w[1][2]==a && w[1][1]=='.'){*dx=1;*dy=1;return 1;}
-		if(w[1][1]==a && w[1][2]==a && w[1][0]=='.'){*dx=1;*dy=0;return 1;}
+		if(w[1][0]==a && w[1][1]==a && w[1][2]=='.' && place[1][2][0]!=-1){*dx=1;*dy=2;return 1;}
+		if(w[1][0]==a && w[1][2]==a && w[1][1]=='.' && place[1][1][0]!=-1){*dx=1;*dy=1;return 1;}
+		if(w[1][1]==a && w[1][2]==a && w[1][0]=='.' && place[1][0][0]!=-1){*dx=1;*dy=0;return 1;}
 		
-		if(w[2][0]==a && w[2][1]==a && w[2][2]=='.'){*dx=2;*dy=2;return 1;}
-		if(w[2][0]==a && w[2][2]==a && w[2][1]=='.'){*dx=2;*dy=1;return 1;}
-		if(w[2][1]==a && w[2][2]==a && w[2][0]=='.'){*dx=2;*dy=0;return 1;}
+		if(w[2][0]==a && w[2][1]==a && w[2][2]=='.' && place[2][2][0]!=-1){*dx=2;*dy=2;return 1;}
+		if(w[2][0]==a && w[2][2]==a && w[2][1]=='.' && place[2][1][0]!=-1){*dx=2;*dy=1;return 1;}
+		if(w[2][1]==a && w[2][2]==a && w[2][0]=='.' && place[2][0][0]!=-1){*dx=2;*dy=0;return 1;}
 		
-		if(w[0][0]==a && w[1][0]==a && w[2][0]=='.'){*dx=2;*dy=0;return 1;}
-		if(w[0][0]==a && w[2][0]==a && w[1][0]=='.'){*dx=1;*dx=0;return 1;}
-		if(w[1][0]==a && w[2][0]==a && w[0][0]=='.'){*dx=0;*dy=0;return 1;}
+		if(w[0][0]==a && w[1][0]==a && w[2][0]=='.' && place[2][0][0]!=-1){*dx=2;*dy=0;return 1;}
+		if(w[0][0]==a && w[2][0]==a && w[1][0]=='.' && place[1][0][0]!=-1){*dx=1;*dx=0;return 1;}
+		if(w[1][0]==a && w[2][0]==a && w[0][0]=='.' && place[0][0][0]!=-1){*dx=0;*dy=0;return 1;}
 		
-		if(w[0][1]==a && w[1][1]==a && w[2][1]=='.'){*dx=2;*dy=1;return 1;}
-		if(w[0][1]==a && w[2][1]==a && w[1][1]=='.'){*dx=1;*dx=1;return 1;}
-		if(w[1][1]==a && w[2][1]==a && w[0][1]=='.'){*dx=0;*dy=1;return 1;}
+		if(w[0][1]==a && w[1][1]==a && w[2][1]=='.' && place[2][1][0]!=-1){*dx=2;*dy=1;return 1;}
+		if(w[0][1]==a && w[2][1]==a && w[1][1]=='.' && place[1][1][0]!=-1){*dx=1;*dx=1;return 1;}
+		if(w[1][1]==a && w[2][1]==a && w[0][1]=='.' && place[0][1][0]!=-1){*dx=0;*dy=1;return 1;}
 		
-		if(w[0][2]==a && w[1][2]==a && w[2][2]=='.'){*dx=2;*dy=2;return 1;}
-		if(w[0][2]==a && w[2][2]==a && w[1][2]=='.'){*dx=1;*dx=2;return 1;}
-		if(w[1][2]==a && w[2][2]==a && w[0][2]=='.'){*dx=0;*dy=2;return 1;}
+		if(w[0][2]==a && w[1][2]==a && w[2][2]=='.' && place[2][2][0]!=-1){*dx=2;*dy=2;return 1;}
+		if(w[0][2]==a && w[2][2]==a && w[1][2]=='.' && place[1][2][0]!=-1){*dx=1;*dx=2;return 1;}
+		if(w[1][2]==a && w[2][2]==a && w[0][2]=='.' && place[0][2][0]!=-1){*dx=0;*dy=2;return 1;}
 		
-		if(w[0][0]==a && w[1][1]==a && w[2][2]=='.'){*dx=2;*dy=2;return 1;}
-		if(w[0][0]==a && w[2][2]==a && w[1][1]=='.'){*dx=1;*dy=1;return 1;}
-		if(w[2][2]==a && w[1][1]==a && w[0][0]=='.'){*dx=0;*dy=0;return 1;}
+		if(w[0][0]==a && w[1][1]==a && w[2][2]=='.' && place[2][2][0]!=-1){*dx=2;*dy=2;return 1;}
+		if(w[0][0]==a && w[2][2]==a && w[1][1]=='.' && place[1][1][0]!=-1){*dx=1;*dy=1;return 1;}
+		if(w[2][2]==a && w[1][1]==a && w[0][0]=='.' && place[0][0][0]!=-1){*dx=0;*dy=0;return 1;}
 		
-		if(w[0][2]==a && w[1][1]==a && w[2][0]=='.'){*dx=2;*dy=0;return 1;}
-		if(w[0][2]==a && w[2][0]==a && w[1][1]=='.'){*dx=1;*dy=1;return 1;}
-		if(w[1][1]==a && w[2][0]==a && w[0][2]=='.'){*dx=0;*dy=2;return 1;}
+		if(w[0][2]==a && w[1][1]==a && w[2][0]=='.' && place[2][0][0]!=-1){*dx=2;*dy=0;return 1;}
+		if(w[0][2]==a && w[2][0]==a && w[1][1]=='.' && place[1][1][0]!=-1){*dx=1;*dy=1;return 1;}
+		if(w[1][1]==a && w[2][0]==a && w[0][2]=='.' && place[0][2][0]!=-1){*dx=0;*dy=2;return 1;}
 		
 		else {
-		*dx=x;
-		*dy=y;
-		return 0;
+			*dx=x;
+			*dy=y;
+			return 0;
 		}
 		
 	}
-	else if(w[x][y]!='.'){
-	*dx=x;
-	*dy=y;
-	return 0;
-	}
-	else {
-	*dx=x;*dy=y;
 	
-		if(place[x][y][0]!=-1){
+	else if(w[x][y]!='.'){
+		*dx=x;
+		*dy=y;
+		return 0;
+	}
+	
+	else 
+	{
+		*dx=x;*dy=y;
+	
+		if(place[x][y][0]!=-1)
+		{
 			w[x][y]=a;
-			if((w[0][0]==a && w[0][1]==a && w[0][2]==a)||
-	   		(w[1][0]==a && w[1][1]==a && w[1][2]==a)||
-	   		(w[2][0]==a && w[2][1]==a && w[2][2]==a)||
-	   		(w[0][0]==a && w[1][0]==a && w[2][0]==a)||
-	   		(w[0][1]==a && w[1][1]==a && w[2][1]==a)||
-	   		(w[0][2]==a && w[1][2]==a && w[2][2]==a)||
-	   		(w[0][0]==a && w[1][1]==a && w[2][2]==a)||
-	   		(w[0][2]==a && w[1][1]==a && w[2][0]==a))
-	   		{w[x][y]='.';
-	   		return 1;}
-	   	}
-	   	else return 0;
+			if(( (w[0][0]==a) && (w[0][1]==a) && (w[0][2]==a) ) || 
+			( (w[1][0]==a) && (w[1][1]==a) && (w[1][2]==a) ) || 
+			( (w[2][0]==a) && (w[2][1]==a) && (w[2][2]==a) ) || 
+			( (w[0][0]==a) && (w[1][0]==a) && (w[2][0]==a) ) || 
+			( (w[0][1]==a) && (w[1][1]==a) && (w[2][1]==a) ) || 
+			( (w[0][2]==a) && (w[1][2]==a) && (w[2][2]==a) ) || 
+			( (w[0][0]==a) && (w[1][1]==a) && (w[2][2]==a) ) || 
+			( (w[0][2]==a) && (w[1][1]==a) && (w[2][0]==a) ))
+			{
+		   		w[x][y]='.';
+		   		return 1;
+	   		}
+	   		else {
+	   			w[x][y]='.';
+	   			return 0;
+	   		}
+	 	}
+	 	else 
+	   			return 0;
 	 }
 }
 
@@ -832,6 +845,8 @@ int* possible(char ****board , int x , int y , char mysym){
 			}	
 		}		
 	}
+	
+	return arr;
 }
 
 void nextmove( char ****board , char **win , int *x , int *y , int *playx , int *playy , char mysym , char ensym , int ** numofme , int **numofen , int ***placeme , int ***placeen){
@@ -848,7 +863,7 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		int n=placeme[dx][dy][0];
 		*playx = n/3;
 		*playy = n%3;
-		printf("4\n");
+		printf("1\n");
 		*x=dx;
 		*y=dy;
 		return ;
@@ -874,12 +889,13 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		dy=nfree%3;
 		*x=dx;
 		*y=dy;
-		printf("1\n");
+		printf("2\n");
 	}
 	
 	if((dx==-1)&&(dy==-1)){
 		int neverplay=0;
 		l=0;
+		// for winning the given grid without letting to win the game
 		for(i=0;i<3;i++){
 			for(j=0;j<3;j++){
 				if((placeme[i][j][0]!=-1)){
@@ -892,7 +908,7 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 						}
 					}
 				}	
-			}
+			} 
 		}
 		if(l!=0){
 			l--;
@@ -900,71 +916,241 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 			int n=rand();
 			if(l!=0)
 				l=n%l;
+
 			n=arr[l];
 			*x=n/3;
 			*y=n%3;
 			neverplay=0;
 			if((placeme[*x][*y][0]!=-1)){
 				for(i=0;placeme[*x][*y][i]!=-1;i++){
-					if(placeen[placeme[*x][*y][i]/3][placeme[*x][*y][i]%3][0]==1)
-						if((w_win( win , ensym , placeen , placeme[*x][*y][i]/3 , placeme[*x][*y][i]%3 , &genx , &geny)))
+					if(placeen[placeme[*x][*y][i]/3][placeme[*x][*y][i]%3][0]==1){
+						if((w_win( win , ensym , placeen , placeme[*x][*y][i]/3 , placeme[*x][*y][i]%3 , &genx , &geny))){
 							neverplay=1;
+						}
+					}
 					if((neverplay==0)&&(board[*x][*y][placeme[*x][*y][i]/3][placeme[*x][*y][i]%3]=='.')&&(win[placeme[*x][*y][i]/3][placeme[*x][*y][i]%3]=='.')){
 						arr[i]=placeme[*x][*y][i];
-				}
-				i--;
-				srand(time(NULL));
-				int n=rand();
-				if(i!=0)
-					i=n%i;
-				n=arr[i];
-				*playx	=n/3;
-				*playy=n%3;
-				printf("2\n");
-				return;
+					}
+					i--;
+					srand(time(NULL));
+					int n=rand();
+					if(i!=0)
+						i=n%i;
+					n=arr[i];
+					*playx=n/3;
+					*playy=n%3;
+					printf("3\n");
+					return;
 				}
 			}
 		}
 		
-		
-		for(i=0;i<3;i++){
-			for(j=0;j<3;j++){
-				if((win[i][j]=='.')&&(!(numofme[i][j]+numofen[i][j]==9))&&())	
+		// for putting opponent not win the grid neither stop you from winning the grid
+		k=0;
+		int howareyou;
+		howareyou=0;
+		for (i=0;i<3;i++){
+			for (j=0;j<3;j++){
+				if ( ((numofme[i][j]+numofen[i][j])!=9) && (placeen[i][j][0]==-1) && (placeme[i][j][0]==-1) && (win[i][j]=='.') ){
+					arr[k++]=i*3+j;
+					howareyou=1;
+				}
 			}
 		}
-		if(l!=0){
-			l--;
-			srand(time(NULL));
-			int n=rand();
-			if(l!=0)
-				l=n%l;
-			n=arr[l];
-			*x=n/3;
-			*y=n%3;
-			neverplay=0;
-			if((placeme[*x][*y][0]!=-1)){
-				for(i=0;placeme[*x][*y][i]!=-1;i++){
-					if(placeen[placeme[*x][*y][i]/3][placeme[*x][*y][i]%3][0]==1)
-						if((w_win( win , ensym , placeen , placeme[*x][*y][i]/3 , placeme[*x][*y][i]%3 , &genx , &geny)))
-							neverplay=1;
-					if((neverplay==0)&&(board[*x][*y][placeme[*x][*y][i]/3][placeme[*x][*y][i]%3]=='.')&&(win[placeme[*x][*y][i]/3][placeme[*x][*y][i]%3]=='.')){
-						arr[i]=placeme[*x][*y][i];
-				}
-				i--;
+		int p,q;
+		if (howareyou!=0){
+			for (i=0;i<k;){
 				srand(time(NULL));
-				int n=rand();
-				if(i!=0)
-					i=n%i;
-				n=arr[i];
-				*playx=n/3;
-				*playy=n%3;
-				printf("2\n");
-				return;
+				int n;
+				n=rand();
+				howareyou=n%k;
+				n=arr[howareyou];
+				for (p=0;p<3;p++){
+					for (q=0;q<3;q++){
+						if ( (win[p][q]=='.') && (board[p][q][n/3][n%3]=='.') ){
+							*x=p;
+							*y=q;
+							*playx=n/3;
+							*playy=n%3;
+							free(arr);
+							return;
+						}
+					}
+				}
+				for(q=howareyou;q<k-1;q++){
+						arr[q]=arr[q+1];
+					
+				}
+				k--;
+			}
+		}
+		// putting the opponent where he can't win
+		k=0;
+		int loseless;
+		loseless=0;
+		for (i=0;i<3;i++){
+			for (j=0;j<3;j++){
+				if ( ((numofme[i][j]+numofen[i][j])!=9)&&(placeen[i][j][0]==-1) && (win[i][j]=='.') ){
+					arr[k++]=i*3+j;
+					loseless=1;
 				}
 			}
 		}
+		if (loseless!=0){
+			for (i=0;i<k;){
+				srand(time(NULL));
+				int n;
+				n=rand();
+				loseless=n%k;
+				n=arr[loseless];
+				for (p=0;p<3;p++){
+					for (q=0;q<3;q++){
+						if ( (win[p][q]=='.') && (board[p][q][n/3][n%3]=='.') ){
+							*x=p;
+							*y=q;
+							*playx=n/3;
+							*playy=n%3;
+							free(arr);
+							return;
+						}
+					}
+				}
+				for(q=loseless;q<k-1;q++){
+						arr[q]=arr[q+1];
+					
+				}
+				k--;
+			}
+		}
+		
+		// played least function not completely finished
+	/*	k=0;
+		int losee;
+		losee=0;
+		for (i=0;i<3;i++){
+			for (j=0;j<3;j++){
+				if ( (placeen[i][j][0]==-1) && (win[i][j]=='.') ){
+					arr[k++]=i*3+j;
+					losee=1;
+				}
+			}
+		}
+		
+		if (losee!=0){
+			for (i=0;i<k;){
+				srand(time(NULL));
+				int n;
+				n=rand();
+				losee=n%k;
+				n=arr[losee];
+				for (p=0;p<3;p++){
+					for (q=0;q<3;q++){
+						if ( (win[p][q]=='.') && (board[p][q][n/3][n%3]=='.') ){
+							*x=p;
+							*y=q;
+							*playx=n/3;
+							*playy=n%3;
+							free(arr);
+							return;
+						}
+					}
+				}
+				for(q=losee;q<k-1;q++){
+						arr[q]=arr[q+1];
+					
+				}
+				k--;
+			}
+		}
+		
+	*/	
 		//
+		
+		// lose hope and send to some non won grid
+		k=0;
+		int lesss;
+		lesss=0;
+		for (i=0;i<3;i++){
+			for (j=0;j<3;j++){
+				if ( ((numofme[i][j]+numofen[i][j])!=9) && (win[i][j]=='.') &&(!(w_win( win , ensym , placeen , i , j , &genx , &geny)))){
+					arr[k++]=i*3+j;
+					lesss=1;
+				}
+			}
+		}
+		if (lesss!=0){
+			for (i=0;i<k;){
+				srand(time(NULL));
+				int n;
+				n=rand();
+				lesss=n%k;
+				n=arr[lesss];
+				for (p=0;p<3;p++){
+					for (q=0;q<3;q++){
+						if ( (win[p][q]=='.') && (board[p][q][n/3][n%3]=='.') ){
+							*x=p;
+							*y=q;
+							*playx=n/3;
+							*playy=n%3;
+							free(arr);
+							return;
+						}
+					}
+				}
+				for(q=lesss;q<k-1;q++){
+						arr[q]=arr[q+1];
+					
+				}
+				k--;
+			}
+		}
+		
+		//
+		
+		//
+		k=0;
+		lesss=0;
+		for (i=0;i<3;i++){
+			for (j=0;j<3;j++){
+				if ( ((numofme[i][j]+numofen[i][j])!=9)){
+					arr[k++]=i*3+j;
+					lesss=1;
+				}
+			}
+		}
+		if (lesss!=0){
+			for (i=0;i<k;){
+				srand(time(NULL));
+				int n;
+				n=rand();
+				lesss=n%k;
+				n=arr[lesss];
+				for (p=0;p<3;p++){
+					for (q=0;q<3;q++){
+						if ( (win[p][q]=='.') && (board[p][q][n/3][n%3]=='.') ){
+							*x=p;
+							*y=q;
+							*playx=n/3;
+							*playy=n%3;
+							free(arr);
+							return;
+						}
+					}
+				}
+				for(q=lesss;q<k-1;q++){
+						arr[q]=arr[q+1];
+					
+				}
+				k--;
+			}
+		}
+		
+		//
+		
+		
 	}
+		
+
 /*	for (i=0;i<9;i++)
 	{
 		if (grid is playable)
@@ -979,7 +1165,6 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		
 			second condition
 */	
-	
 	
 	
 	// x==-1 case not taken care
@@ -1006,15 +1191,47 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 			n=arr[i];
 			*playx=n/3;
 			*playy=n%3;
-			printf("3\n");
+			printf("5\n");
 			return;
 		}
 	}	
 	
+	int *new;
+	new = possible( board , dx , dy , mysym);
+	
+	
 	// x==-1 case not taken care
 	// for opponent playing in a empty grid
 	int check=0;
+	
+
 	k=0;
+	int p=0;
+	for(p=0;new[p]!=-1;p++){
+		if((board[dx][dy][new[p]/3][new[p]%3]=='.')&&(numofme[new[p]/3][new[p]%3]==0)&&(numofen[new[p]/3][new[p]%3]==0)&&(win[new[p]/3][new[p]%3]=='.')){
+				arr[k++]=new[p];
+				check=1;
+		}
+	}
+	if(check!=0){
+		k--;
+		srand(time(NULL));
+		int n=rand();
+		if(k!=0)
+			k=n%k;
+		n=arr[k];
+		*playx=n/3;
+		*playy=n%3;
+		printf("6\n");
+		return;
+	}
+
+
+
+
+
+	k=0;
+	check=0;
 	for(i=0;i<3;i++){
 		for(j=0;j<3;j++){
 			if((board[dx][dy][i][j]=='.')&&(numofme[i][j]==0)&&(numofen[i][j]==0)&&(win[i][j]=='.')){
@@ -1032,7 +1249,7 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		n=arr[k];
 		*playx=n/3;
 		*playy=n%3;
-		printf("5\n");
+		printf("6\n");
 		return;
 	}
 	
@@ -1041,7 +1258,41 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 	// x==-1 case not taken care
 	// for putting opponent in a grid where he played zero times and you dont lose your win
 	int flag=0;
+	
+	
+	/*k=0;
+	for(p=0;new[p]!=-1;p++){
+			if((board[dx][dy][new[p]/3][new[p]%3]=='.')&&(numofen[new[p]/3][new[p]%3]==0)&&(placeme[new[p]/3][new[p]%3][0]==-1)&&(win[new[p/3]][new[p]%3]=='.')){
+				arr[k++]=new[p];
+				flag=1;
+			}
+	}
+	if(k==0){
+		for(p=0;new[p]!=-1;p++){
+				if((board[dx][dy][new[p]/3][new[p]%3]=='.')&&(numofen[new[p]/3][new[p]%3]==0)&&(win[new[p]/3][new[p]%3]=='.')){
+					arr[k++]=new[p];
+					flag=1;
+				}
+		}
+	} 
+		
+	if(flag!=0){
+		k--;
+		srand(time(NULL));
+		int n=rand();
+		if(k!=0)
+			k=n%k;
+		n=arr[k];
+		*playx=n/3;
+		*playy=n%3;
+		printf("7\n");
+		return;
+	}
+	
+	
+	*/
 	k=0;
+	flag=0;
 	for(i=0;i<3;i++){
 		for(j=0;j<3;j++){
 			if((board[dx][dy][i][j]=='.')&&(numofen[i][j]==0)&&(placeme[i][j][0]==-1)&&(win[i][j]=='.')){
@@ -1070,13 +1321,46 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		n=arr[k];
 		*playx=n/3;
 		*playy=n%3;
-		printf("6\n");
+		printf("7\n");
 		return;
 	}
 	
 	// x==-1 case not taken care
 	// for putting opponent in a grid where he played only once
 	int flag1=0;
+	
+	k=0;
+	for(p=0;new[p]!=-1;p++){
+			if((board[dx][dy][new[p]/3][new[p]%3]=='.')&&(numofen[new[p]/3][new[p]%3]==1)&&(placeme[new[p]/3][new[p]%3][0]==-1)&&(win[new[p]/3][new[p]%3]=='.')){
+				arr[k++]=new[p];
+				flag1=1;
+			}
+		
+	}
+	if(k==0){
+		for(p=0;new[p]!=-1;p++){
+			if((board[dx][dy][new[p]/3][new[p]%3]=='.')&&(numofen[new[p]/3][new[p]%3]==1)&&(win[new[p]/3][new[p]%3]=='.')){
+					arr[k++]=new[p];
+					flag1=1;
+			}
+		}
+	}
+	
+	
+	if(flag1!=0){
+		k--;
+		srand(time(NULL));
+		int n=rand();
+		if(k!=0)
+			k=n%k;
+		n=arr[k];
+		*playx=n/3;
+		*playy=n%3;
+		printf("8\n");
+		return;
+	}
+	
+	flag1=0;
 	k=0;
 	for(i=0;i<3;i++){
 		for(j=0;j<3;j++){
@@ -1107,13 +1391,35 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		n=arr[k];
 		*playx=n/3;
 		*playy=n%3;
-		printf("7\n");
+		printf("8\n");
 		return;
 	}
 	
 	// x==-1 case not taken care
 	// for putting opponent not win the grid neither stop you from winning the grid
 	int flagwin=0;
+	k=0;
+	for(p=0;new[p]!=-1;p++){
+			if((board[dx][dy][new[p]/3][new[p]%3]=='.')&&(placeen[new[p]/3][new[p]%3][0]==-1)&&(placeme[new[p]/3][new[p]%3][0]==-1)&&(win[new[p]/3][new[p]%3]=='.')){
+				arr[k++]=new[p];
+				flagwin=1;
+			}
+	}
+	if(flagwin!=0){
+		k--;
+		srand(time(NULL));
+		int n=rand();
+		if(k!=0)
+			k=n%k;
+		n=arr[k];
+		*playx=n/3;
+		*playy=n%3;
+		printf("9\n");
+		return;
+	} 
+	
+	
+	flagwin=0;
 	k=0;
 	for(i=0;i<3;i++){
 		for(j=0;j<3;j++){
@@ -1132,13 +1438,35 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		n=arr[k];
 		*playx=n/3;
 		*playy=n%3;
-		printf("8\n");
+		printf("9\n");
 		return;
 	}
 	
 	// x==-1 case not taken care
 	// for pushing into grid where he can't win and I can win
 	int flaglost=0;
+	k=0;
+	for(p=0;new[p]!=-1;p++){
+			if((board[dx][dy][new[p]/3][new[p]%3]=='.')&&(placeen[new[p]/3][new[p]%3][0]==-1)&&(placeme[new[p]/3][new[p]%3][0]!=-1)&&(win[new[p]/3][new[p]%3]=='.')){
+				arr[k++]=new[p];
+				flaglost=1;
+			}
+	}
+	if(flaglost!=0){
+		k--;
+		srand(time(NULL));
+		int n=rand();
+		if(k!=0)
+			k=n%k;
+		n=arr[k];
+		*playx=n/3;
+		*playy=n%3;
+		printf("10\n");
+		return;
+	}
+	
+	
+	flaglost=0;
 	k=0;
 	for(i=0;i<3;i++){
 		for(j=0;j<3;j++){
@@ -1157,7 +1485,7 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		n=arr[k];
 		*playx=n/3;
 		*playy=n%3;
-		printf("9\n");
+		printf("10\n");
 		return;
 	}
 	
@@ -1166,6 +1494,31 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 	// x==-1 case not taken care of
 	// for putting him in a grid where he can win and I has played least
 	int flaglose=0,min=9,index=-1;
+	k=0;
+	for(p=0;new[p]!=-1;p++){
+			if((board[dx][dy][new[p]/3][new[p]%3]=='.')&&(placeen[new[p]/3][new[p]%3][0]!=-1)&&(!(w_win( win , ensym , placeen , *x , *y , &genx , &geny)))&&(win[new[p]/3][new[p]%3]=='.')){
+				arr[k++]=new[p];
+				if(numofme[new[p]/3][new[p]%3]<min){
+					index=k-1;
+					min = numofme[new[p]/3][new[p]%3];
+				}
+				flaglose=1;
+			}
+	}
+	if(index!=-1){
+		k=index;
+		int n=arr[k];
+		if(k!=0)
+			k=n%k;
+		n=arr[k];
+		*playx=n/3;
+		*playy=n%3;
+		printf("11\n");
+		return;
+	} 
+	
+	
+	flaglose=0,min=9,index=-1;
 	k=0;
 	for(i=0;i<3;i++){
 		for(j=0;j<3;j++){
@@ -1187,7 +1540,7 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		n=arr[k];
 		*playx=n/3;
 		*playy=n%3;
-		printf("10\n");
+		printf("11\n");
 		return;
 	}
 	
@@ -1195,9 +1548,32 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 	//lose hope and play random but not let -1,-1 come
 	int lost=0;
 	k=0;
+	for(p=0;new[p]!=-1;p++){
+			if((board[dx][dy][new[p]/3][new[p]%3]=='.')&&(win[new[p]/3][new[p]%3]=='.')&&(!(w_win( win , ensym , placeen , new[p]/3 , new[p]%3 , &genx , &geny)))){
+				arr[k++]=new[p];
+				lost=1;
+			}
+		
+	}
+	if(lost!=0){
+		k--;
+		srand(time(NULL));
+		int n=rand();
+		if(k!=0)
+			k=n%k;
+		n=arr[k];
+		*playx=n/3;
+		*playy=n%3;
+		printf("12\n");
+		return;
+	}
+	
+	 
+	lost=0;
+	k=0;
 	for(i=0;i<3;i++){
 		for(j=0;j<3;j++){
-			if((board[dx][dy][i][j]=='.')&&(win[i][j]=='.')){
+			if((board[dx][dy][i][j]=='.')&&(win[i][j]=='.')&&(!(w_win( win , ensym , placeen , i , j , &genx , &geny)))){
 				arr[k++]=i*3+j;
 				lost=1;
 			}
@@ -1212,16 +1588,37 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		n=arr[k];
 		*playx=n/3;
 		*playy=n%3;
-		printf("11\n");
+		printf("12\n");
 		return;
 	}
 	
 	//lose hope and play random
 	int lostgame=0;
 	k=0;
+	for(p=0;new[p]!=-1;p++){
+			if((win[dx][dy]=='.')&&(board[dx][dy][new[p]/3][new[p]%3]=='.')){
+				arr[k++]=new[p];
+				lostgame=1;
+			}
+	}
+	if(lostgame!=0){
+		k--;
+		srand(time(NULL));
+		int n=rand();
+		if(k!=0)
+			k=n%k;
+		n=arr[k];
+		*playx=n/3;
+		*playy=n%3;
+		printf("13\n");
+		return;
+	}
+	
+	lostgame=0;
+	k=0;
 	for(i=0;i<3;i++){
 		for(j=0;j<3;j++){
-			if((board[dx][dy][i][j]=='.')&&(win[i][j]=='.')){
+			if((win[dx][dy]=='.')&&(board[dx][dy][i][j]=='.')){
 				arr[k++]=i*3+j;
 				lostgame=1;
 			}
@@ -1236,7 +1633,7 @@ void nextmove( char ****board , char **win , int *x , int *y , int *playx , int 
 		n=arr[k];
 		*playx=n/3;
 		*playy=n%3;
-		printf("11\n");
+		printf("13\n");
 		return;
 	}
 }
