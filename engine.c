@@ -6,10 +6,13 @@ int box_win(int,int,char****,int);
 int w_win(int **,int);
 void print(FILE*,char ****);
 void scan(FILE *,char ****);
+int board_full(int,int,char ****);
+
 
 int main()
 {
-	FILE* fp=fopen("board.dat","w");
+	FILE* fp;
+	fp=fopen("board.dat","w");
 	int i,j,k,l,player1_win=0,player2_win=0,x2=-1,y2=-1,x1,y1,x,y;
 	int **win=(int**)malloc(sizeof(int*)*3);
 	for(i=0;i<3;i++)
@@ -68,10 +71,16 @@ int main()
 		
 		//a check to see whether any of the grids is won by player1 and mark that
 		//particular element in 'w'matrix as '1'
-		if(win[x][y]==-1 && box_win(x1,y1,board,1)==1)win[x1][y1]=1;
+		if(win[x][y]==-1 && box_win(x,y,board,1)==1)
+			win[x][y]=1;
 		
-		if(win[x][y]!=-1){x1=-1;y1=-1;}
-		else {x1=x;y1=y;}
+		if(win[x][y]!=-1 ){
+			x1=-1;
+			y1=-1;
+		}else {
+			x1=x;
+			y1=y;
+		}
 		
 		
 		
@@ -98,7 +107,7 @@ int main()
 		
 		//a check to see whether any of the grids is won by player2 and mark that
 		//particular element in 'w'matrix as '2'
-		if(win[x][y]==-1 && box_win(x2,y2,board,2)==2)win[x2][y2]=2;
+		if(win[x][y]==-1 && box_win(x,y,board,2)==2)win[x][y]=2;
 		
 		if(win[x][y]!=-1){x2=-1;y2=-1;}
 		else {x2=x;y2=y;}
@@ -107,6 +116,7 @@ int main()
 		
 		//to check whether player2 is won
 		if(w_win(win,2)==2){player2_win=1;break;}
+		if(board_of_win_full(win,board)==1)break;
 		
 		fp=fopen("board.dat","w");
 	}
@@ -246,4 +256,30 @@ void scan(FILE *fp,char ****board)
 	}
 	
 }
+
+
+/****************************************************************************************
+** board_full func to see whether all elements in board of that particular win matrix are
+** filled.
+** @param x,y : coordinates of the grid in the board
+** @param board pointer to the board
+** @return:returns 1 if entire grid is filled,else 0
+****************************************************************************************/
+int board_full(int x,int y,char ****board)
+{
+	int i,j;
+	for(i=0;i<3;i++)
+	{
+		for(j=0;j<3;j++)
+		{
+			if(board[x][y][i][j]!='.')
+			continue;
+			else return 0;
+		}
+	}
+return 1;
+
+}
+
+
 			
